@@ -70,6 +70,7 @@ pipeline {
                     node_modules/.bin/netlify --version
                     echo "프로젝트 배포중 사이트 ID : $NETLIFY_SITE_ID"
                     node_modules/.bin/netlify status
+                    node_modules/.bin/netlify deploy --dir=build --prod
                 '''
             }
         }
