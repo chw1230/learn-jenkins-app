@@ -1,18 +1,18 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+            reuseNode true
+        }
+    }
 
     environment {
         NETLIFY_SITE_ID = '0a394fab-e457-46b7-8de5-9055b33be463'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
     }
+
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    reuseNode true
-                }
-            }
             steps {
                 sh '''
                     echo '트리거 테스트!'
@@ -27,28 +27,16 @@ pipeline {
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    reuseNode true
-                }
-            }
             steps {
                 echo 'Test stage'
                 sh '''
-		            test -f build/index.html
+                    test -f build/index.html
                     npm test
                 '''
             }
         }
 
         stage('E2E') {
-            agent {
-                docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    reuseNode true
-                }
-            }
             steps {
                 sh '''
                     npm install serve
@@ -59,12 +47,6 @@ pipeline {
         }
 
         stage('Deploy') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
             steps {
                 sh '''
                     npm install netlify-cli@20.1.1
@@ -87,9 +69,10 @@ pipeline {
             }
         }
     }
+
     post {
         always {
             junit 'jest-results/junit.xml'
         }
-    } 
+    }
 }
