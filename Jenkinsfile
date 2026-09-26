@@ -5,7 +5,6 @@ pipeline {
         NETLIFY_SITE_ID = '0a394fab-e457-46b7-8de5-9055b33be463'
         NETLIFY_AUTH_TOKEN = credentials('netlify-token')
     }
-    }
     stages {
         stage('Build') {
             agent {
