@@ -75,6 +75,17 @@ pipeline {
                 '''
             }
         }
+
+        stage('Prod E2E') {
+            environment {
+                CI_ENVIRONMENT_URL = 'https://elegant-pasca-517c8d.netlify.app'
+            }
+            steps {
+                sh '''
+                    npx playwright test --reporter=html
+                '''
+            }
+        }
     }
     post {
         always {
