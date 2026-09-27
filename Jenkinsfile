@@ -12,7 +12,7 @@ pipeline {
             agent {
                 docker { 
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
-                    resueNode true
+                    reuseNode true
                 }
             }
             steps {
@@ -30,7 +30,8 @@ pipeline {
             agent {
                 docker { 
                     image 'amazon/aws-cli'
-                    resueNode true
+                    reuseNode
+                     true
                     args "--entrypoint=''" 
                 }
             }
