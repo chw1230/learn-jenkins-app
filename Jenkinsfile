@@ -21,7 +21,7 @@ pipeline {
                     sh '''
                         aws --version
                         echo "LOVE LOVE LOVE" > index.html
-                        aws s3 cp index.html s3:learn-jenkins-2026-09-27/index.html"
+                        aws s3 cp index.html s3:learn-jenkins-2026-09-27/index.html
                     '''
                 }
             }
