@@ -2,12 +2,11 @@ pipeline {
      // 전역 에이전트를 사용하지 않음으로써 컨테이너 중첩 방지
     agent none 
 
-    stages {
-
-        environment {
+    environment {
             AWS_DEFAULT_REGION = 'ab-northeast-2'
-        }
+    }
 
+    stages {
         stage('Deploy to AWS') {
             agent {
                 docker { 
