@@ -3,6 +3,8 @@ pipeline {
     agent none 
 
     environment {
+            REACT_APP_VERSION = '1.0.$BUILD_ID'
+            APP_NAME = 'LearnJenkinsApp'
             AWS_DEFAULT_REGION = 'ap-northeast-2'
             AWS_ECS_CLUSTER = 'polished-giraffe-lhe7la'
             AWS_ECS_SERVICE_PROD = 'LearnJenkinsApp-Service-prod'
@@ -41,7 +43,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'my_aws', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
                     sh '''
                         yum install -y docker 
-                        docker build -t myjenkinsapp .
+                        docker build -t $APP_NAME:$REACT_APP_VERSION .
                     '''
                 }
             }
